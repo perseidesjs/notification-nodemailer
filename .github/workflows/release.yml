@@ -31,9 +31,9 @@ jobs:
         uses: changesets/action@v1
         with:
           # This will run `yarn changeset version` and create a PR
-          version: yarn version
+          version: yarn run version
           # This will run `yarn changeset publish`
-          publish: yarn release
+          publish: yarn run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
