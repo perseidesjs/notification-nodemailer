@@ -31,10 +31,15 @@
     "prepublishOnly": "medusa plugin:build",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "yarn build && changeset publish"
+    "release": "yarn build && changeset publish",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
+    "@epic-web/config": "^1.21.0",
     "@medusajs/admin-sdk": "2.4.0",
     "@medusajs/cli": "2.4.0",
     "@medusajs/framework": "2.4.0",
@@ -53,8 +58,10 @@
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.2.25",
     "awilix": "^8.0.1",
+    "eslint": "^9.30.1",
     "nodemailer": "^7.0.5",
     "pg": "^8.13.0",
+    "prettier": "^3.6.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
