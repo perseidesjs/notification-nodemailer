@@ -28,4 +28,10 @@ jobs:
         run: yarn build
 
       - name: Type Check
-        run: yarn tsc --noEmit
+        run: yarn typecheck
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Format Check
+        run: yarn format:check

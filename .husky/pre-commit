@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run type checking
+echo "🔍 Checking types..."
+yarn typecheck || {
+  echo "❌ Type check failed. Please fix the errors before committing."
+  exit 1
+}
+
+# Run lint-staged for formatting and linting
+echo "✨ Running lint-staged..."
+yarn lint-staged
