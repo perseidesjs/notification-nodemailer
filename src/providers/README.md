@@ -6,24 +6,24 @@ Then, you register them in the Medusa application as `plugin-name/providers/my-n
 
 ```ts
 module.exports = defineConfig({
-  // ...
-  modules: [
-    {
-      resolve: "@medusajs/medusa/notification",
-      options: {
-        providers: [
-          {
-            resolve: "@myorg/plugin-name/providers/my-notification",
-            id: "my-notification",
-            options: {
-              channels: ["email"],
-              // provider options...
-            },
-          },
-        ],
-      },
-    },
-  ],
+	// ...
+	modules: [
+		{
+			resolve: '@medusajs/medusa/notification',
+			options: {
+				providers: [
+					{
+						resolve: '@myorg/plugin-name/providers/my-notification',
+						id: 'my-notification',
+						options: {
+							channels: ['email'],
+							// provider options...
+						},
+					},
+				],
+			},
+		},
+	],
 })
 ```
 

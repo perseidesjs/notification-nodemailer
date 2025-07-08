@@ -1,1 +1,4 @@
-export { NodemailerNotificationProviderService, PluginOptions } from "./providers/nodemailer/service";
+export {
+	NodemailerNotificationProviderService,
+	PluginOptions,
+} from './providers/nodemailer/service'
