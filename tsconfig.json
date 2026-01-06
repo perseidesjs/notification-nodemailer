@@ -28,6 +28,8 @@
 		".medusa/server",
 		".medusa/admin",
 		"src/admin",
-		".cache"
+		".cache",
+		"vitest.config.ts",
+		"**/*.test.ts"
 	]
 }

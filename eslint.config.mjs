@@ -6,7 +6,7 @@ import { config as defaultConfig } from '@epic-web/config/eslint'
  */
 export default [
 	{
-		ignores: ['.medusa/**'],
+		ignores: ['.medusa/**', '**/*.test.ts', 'vitest.config.ts'],
 	},
 	...defaultConfig,
 ]
