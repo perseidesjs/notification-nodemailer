@@ -1,5 +1,11 @@
 # @perseidesjs/notification-nodemailer
 
+## 3.0.0
+
+### Major Changes
+
+- 0d2d355: v3
+
 ## 2.0.0
 
 ### Major Changes
