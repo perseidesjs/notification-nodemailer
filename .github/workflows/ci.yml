@@ -34,7 +34,7 @@ jobs:
         run: yarn typecheck
 
       - name: Lint
-        run: yarn lint
+        run: yarn lint:check
 
       - name: Format Check
         run: yarn format:check

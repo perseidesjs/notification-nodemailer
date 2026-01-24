@@ -1,4 +1,4 @@
 export {
 	NodemailerNotificationProviderService,
 	PluginOptions,
-} from './providers/nodemailer/service'
+} from "./providers/nodemailer/service"
