@@ -1,16 +1,16 @@
-import {
-	type ProviderSendNotificationDTO,
-	type ProviderSendNotificationResultsDTO,
-} from '@medusajs/framework/types'
+import type {
+	ProviderSendNotificationDTO,
+	ProviderSendNotificationResultsDTO,
+} from "@medusajs/framework/types"
 import {
 	AbstractNotificationProviderService,
 	isDefined,
 	MedusaError,
-} from '@medusajs/framework/utils'
-import nodemailer, { type Transporter } from 'nodemailer'
-import type Mail from 'nodemailer/lib/mailer'
-import type SMTPConnection from 'nodemailer/lib/smtp-connection'
-import type SMTPTransport from 'nodemailer/lib/smtp-transport'
+} from "@medusajs/framework/utils"
+import nodemailer, { type Transporter } from "nodemailer"
+import type Mail from "nodemailer/lib/mailer"
+import type SMTPConnection from "nodemailer/lib/smtp-connection"
+import type SMTPTransport from "nodemailer/lib/smtp-transport"
 
 /**
  * Checks if a string is in binary digit format.
@@ -59,7 +59,7 @@ export function processAttachmentContent(
 	if (Buffer.isBuffer(content)) {
 		return content
 	}
-	if (typeof content === 'string' && isBinaryString(content)) {
+	if (typeof content === "string" && isBinaryString(content)) {
 		return binaryStringToBuffer(content)
 	}
 	return content
@@ -71,7 +71,7 @@ export type PluginOptions = SMTPConnection.Options &
 	}
 
 export class NodemailerNotificationProviderService extends AbstractNotificationProviderService {
-	static identifier = 'nodemailer'
+	static identifier = "nodemailer"
 
 	protected options_: PluginOptions
 	protected transporter: Transporter
@@ -86,14 +86,14 @@ export class NodemailerNotificationProviderService extends AbstractNotificationP
 		if (!options.host) {
 			throw new MedusaError(
 				MedusaError.Types.INVALID_DATA,
-				`"host" is required in the ${this.identifier} provider's options.`,
+				`"host" is required in the ${NodemailerNotificationProviderService.identifier} provider's options.`,
 			)
 		}
 
 		if (!options.port) {
 			throw new MedusaError(
 				MedusaError.Types.INVALID_DATA,
-				`"port" is required in the ${this.identifier} provider's options.`,
+				`"port" is required in the ${NodemailerNotificationProviderService.identifier} provider's options.`,
 			)
 		}
 	}
@@ -126,15 +126,15 @@ export class NodemailerNotificationProviderService extends AbstractNotificationP
 				filename: attachment.filename,
 				contentType: attachment.content_type,
 				contentDisposition:
-					attachment.disposition === 'inline' ||
-					attachment.disposition === 'attachment'
+					attachment.disposition === "inline" ||
+					attachment.disposition === "attachment"
 						? attachment.disposition
 						: undefined,
 				cid: attachment.id,
 				contentTransferEncoding:
-					attachment.content_type === 'text/html'
-						? 'quoted-printable'
-						: 'base64',
+					attachment.content_type === "text/html"
+						? "quoted-printable"
+						: "base64",
 			}))
 		}
 
