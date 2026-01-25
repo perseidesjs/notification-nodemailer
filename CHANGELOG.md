@@ -1,5 +1,11 @@
 # @perseidesjs/notification-nodemailer
 
+## 3.1.0
+
+### Minor Changes
+
+- 19038de: Upgrade to Medusa 2.13.0
+
 ## 3.0.0
 
 ### Major Changes
