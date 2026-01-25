@@ -43,9 +43,9 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.3.11",
 		"@changesets/cli": "^2.29.5",
-		"@medusajs/cli": "2.12.4",
-		"@medusajs/framework": "2.12.4",
-		"@medusajs/medusa": "2.12.4",
+		"@medusajs/cli": "2.13.0",
+		"@medusajs/framework": "2.13.0",
+		"@medusajs/medusa": "2.13.0",
 		"@swc/core": "1.5.7",
 		"@types/node": "^20.0.0",
 		"@types/nodemailer": "^6.4.17",
@@ -56,9 +56,9 @@
 		"yalc": "^1.0.0-pre.53"
 	},
 	"peerDependencies": {
-		"@medusajs/cli": ">=2.12.4",
-		"@medusajs/framework": ">2.12.4",
-		"@medusajs/medusa": ">2.12.4",
+		"@medusajs/cli": ">=2.13.0",
+		"@medusajs/framework": ">=2.13.0",
+		"@medusajs/medusa": ">=2.13.0",
 		"nodemailer": "^7.0.5"
 	},
 	"engines": {
