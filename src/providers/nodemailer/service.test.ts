@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import {
 	binaryStringToBuffer,
+	isBase64String,
 	isBinaryString,
 	processAttachmentContent,
 } from "./service"
@@ -127,5 +128,37 @@ describe("processAttachmentContent", () => {
 		const result = processAttachmentContent(binaryString)
 		expect(Buffer.isBuffer(result)).toBe(true)
 		expect(result).toEqual(pngSignature)
+	})
+})
+
+describe("isBase64String", () => {
+	it("should return true for valid base64 strings", () => {
+		// "Hello" in base64
+		expect(isBase64String("SGVsbG8=")).toBe(true)
+		// PNG data URL content (without prefix)
+		expect(isBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAAB")).toBe(true)
+		// No padding
+		expect(isBase64String("SGVsbG8gV29ybGQ")).toBe(true)
+	})
+
+	it("should return false for binary digit strings", () => {
+		// Binary string (0s and 1s only)
+		expect(isBase64String("0100100001101001")).toBe(false)
+	})
+
+	it("should return false for regular text", () => {
+		expect(isBase64String("Hello World")).toBe(false)
+		expect(isBase64String("test@example.com")).toBe(false)
+	})
+
+	it("should return false for strings too short", () => {
+		expect(isBase64String("abc")).toBe(false)
+		expect(isBase64String("")).toBe(false)
+	})
+
+	it("should return true for base64 without padding", () => {
+		// Some encoders omit padding, which is valid
+		expect(isBase64String("SGVSB")).toBe(true)
+		expect(isBase64String("SGVsbG8")).toBe(true)
 	})
 })

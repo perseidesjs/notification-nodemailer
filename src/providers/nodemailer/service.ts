@@ -47,6 +47,19 @@ export function binaryStringToBuffer(binaryString: string): Buffer {
 }
 
 /**
+ * Checks if a string is valid base64 encoded data.
+ * Base64 strings contain only A-Z, a-z, 0-9, +, /, and optional = padding.
+ */
+export function isBase64String(content: string): boolean {
+	if (content.length < 4) return false
+	// Binary strings (only 0s and 1s) are NOT base64
+	if (isBinaryString(content)) return false
+	// Base64 pattern: alphanumeric, +, /, with optional = padding at end
+	// Allow strings not divisible by 4 (some encoders omit padding)
+	return /^[A-Za-z0-9+/]+=*$/.test(content)
+}
+
+/**
  * Processes attachment content to ensure it's in a format Nodemailer can handle.
  * Supports:
  * - Buffer: Passed through as-is
@@ -121,21 +134,26 @@ export class NodemailerNotificationProviderService extends AbstractNotificationP
 			Array.isArray(notification.attachments) &&
 			notification.attachments.length > 0
 		) {
-			attachments = notification.attachments.map((attachment) => ({
-				content: processAttachmentContent(attachment.content),
-				filename: attachment.filename,
-				contentType: attachment.content_type,
-				contentDisposition:
-					attachment.disposition === "inline" ||
-					attachment.disposition === "attachment"
-						? attachment.disposition
-						: undefined,
-				cid: attachment.id,
-				contentTransferEncoding:
-					attachment.content_type === "text/html"
-						? "quoted-printable"
-						: "base64",
-			}))
+			attachments = notification.attachments.map((attachment) => {
+				const processedContent = processAttachmentContent(attachment.content)
+				const isBase64Content =
+					typeof processedContent === "string" &&
+					isBase64String(processedContent)
+
+				return {
+					content: processedContent,
+					filename: attachment.filename,
+					contentType: attachment.content_type,
+					contentDisposition:
+						attachment.disposition === "inline" ||
+						attachment.disposition === "attachment"
+							? attachment.disposition
+							: undefined,
+					cid: attachment.id,
+					// Tell nodemailer the content is base64-encoded so it decodes first
+					encoding: isBase64Content ? "base64" : undefined,
+				}
+			})
 		}
 
 		const mailOptions: Mail.Options = {
