@@ -41,7 +41,7 @@ pnpm add @perseidesjs/notification-nodemailer
 
 ## Documentation
 
-Access the full documentation at [docs.perseides.org/plugins/notification-nodemailer](https://docs.perseides.org/plugins/notification-nodemailer/getting-started)
+Access the full documentation at [https://docs.perseides.org/docs/plugins/notification-nodemailer/getting-started](https://docs.perseides.org/docs/plugins/notification-nodemailer/getting-started)
 
 ## License
 
