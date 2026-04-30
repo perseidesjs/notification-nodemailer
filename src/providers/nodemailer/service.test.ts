@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import {
 	binaryStringToBuffer,
+	extractProviderData,
 	isBase64String,
 	isBinaryString,
 	processAttachmentContent,
@@ -128,6 +129,50 @@ describe("processAttachmentContent", () => {
 		const result = processAttachmentContent(binaryString)
 		expect(Buffer.isBuffer(result)).toBe(true)
 		expect(result).toEqual(pngSignature)
+	})
+})
+
+describe("extractProviderData", () => {
+	it("should extract replyTo from provider_data", () => {
+		expect(extractProviderData({ replyTo: "r@x.com" })).toEqual({
+			replyTo: "r@x.com",
+		})
+	})
+
+	it("should return empty object for null", () => {
+		expect(extractProviderData(null)).toEqual({})
+	})
+
+	it("should return empty object for undefined", () => {
+		expect(extractProviderData(undefined)).toEqual({})
+	})
+
+	it("should return empty object for empty object", () => {
+		expect(extractProviderData({})).toEqual({})
+	})
+
+	it("should extract cc from provider_data", () => {
+		expect(extractProviderData({ cc: "cc@x.com" })).toEqual({ cc: "cc@x.com" })
+	})
+
+	it("should extract bcc from provider_data", () => {
+		expect(extractProviderData({ bcc: "bcc@x.com" })).toEqual({
+			bcc: "bcc@x.com",
+		})
+	})
+
+	it("should extract replyTo, cc, and bcc together", () => {
+		expect(
+			extractProviderData({
+				replyTo: "r@x.com",
+				cc: "cc@x.com",
+				bcc: "bcc@x.com",
+			}),
+		).toEqual({ replyTo: "r@x.com", cc: "cc@x.com", bcc: "bcc@x.com" })
+	})
+
+	it("should ignore unknown keys", () => {
+		expect(extractProviderData({ unknownKey: "x" })).toEqual({})
 	})
 })
 
