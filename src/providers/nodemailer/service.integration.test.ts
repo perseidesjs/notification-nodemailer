@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeAll } from "vitest"
+import { beforeAll, describe, expect, it } from "vitest"
 import QRCode from "qrcode"
 import { NodemailerNotificationProviderService } from "./service"
 
@@ -142,5 +142,39 @@ describe("Nodemailer Integration - QR Code Attachments", () => {
 		expect(result).toBeDefined()
 		expect(result.id).toBeDefined()
 		console.log("Both inline+attachment email sent, messageId:", result.id)
+	})
+})
+
+describe("Nodemailer Integration - provider_data options", () => {
+	let service: NodemailerNotificationProviderService
+
+	beforeAll(() => {
+		service = new NodemailerNotificationProviderService(null, {
+			from: "test@example.com",
+			host: "localhost",
+			port: 1025,
+			secure: false,
+		})
+	})
+
+	it("sends email with replyTo, cc, and bcc from provider_data", async () => {
+		const result = await service.send({
+			to: "customer@example.com",
+			channel: "email",
+			template: "order-confirmation",
+			content: {
+				subject: "Order Confirmed",
+				html: "<p>Your order has been confirmed.</p>",
+			},
+			provider_data: {
+				replyTo: "support@store.com",
+				cc: "ops@store.com",
+				bcc: "archive@store.com",
+			},
+		})
+
+		expect(result).toBeDefined()
+		expect(result.id).toBeDefined()
+		console.log("provider_data email sent, messageId:", result.id)
 	})
 })

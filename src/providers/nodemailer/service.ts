@@ -78,6 +78,23 @@ export function processAttachmentContent(
 	return content
 }
 
+export function extractProviderData(
+	provider_data: Record<string, unknown> | null | undefined,
+): Pick<Mail.Options, "replyTo" | "cc" | "bcc"> {
+	if (!provider_data) return {}
+	const result: Pick<Mail.Options, "replyTo" | "cc" | "bcc"> = {}
+	if (isDefined(provider_data.replyTo)) {
+		result.replyTo = provider_data.replyTo as Mail.Options["replyTo"]
+	}
+	if (isDefined(provider_data.cc)) {
+		result.cc = provider_data.cc as Mail.Options["cc"]
+	}
+	if (isDefined(provider_data.bcc)) {
+		result.bcc = provider_data.bcc as Mail.Options["bcc"]
+	}
+	return result
+}
+
 export type PluginOptions = SMTPConnection.Options &
 	SMTPTransport.MailOptions & {
 		from: string
@@ -114,7 +131,7 @@ export class NodemailerNotificationProviderService extends AbstractNotificationP
 	async send(
 		notification: ProviderSendNotificationDTO,
 	): Promise<ProviderSendNotificationResultsDTO> {
-		const { to, content } = notification
+		const { to, content, provider_data } = notification
 
 		if (!isDefined(this.options_.from) && !isDefined(notification.from)) {
 			throw new MedusaError(
@@ -160,6 +177,7 @@ export class NodemailerNotificationProviderService extends AbstractNotificationP
 			from: notification.from ?? this.options_.from,
 			to,
 			subject: content?.subject,
+			...extractProviderData(provider_data),
 		}
 
 		if (isDefined(html)) {
