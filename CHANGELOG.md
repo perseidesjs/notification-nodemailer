@@ -1,5 +1,11 @@
 # @perseidesjs/notification-nodemailer
 
+## 3.2.0
+
+### Minor Changes
+
+- 88228a9: Add replyTo, cc, and bcc support via provider_data
+
 ## 3.1.1
 
 ### Patch Changes
