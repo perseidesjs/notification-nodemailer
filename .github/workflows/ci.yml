@@ -9,6 +9,11 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    services:
+      mailhog:
+        image: mailhog/mailhog
+        ports:
+          - 1025:1025
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
